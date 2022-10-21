@@ -1,0 +1,26 @@
+.page .page-wrapper {
+  padding-top: 2em;
+}
+
+.user-dropdown {
+  cursor: pointer;
+}
+
+.nav-item.active {
+  font-weight: 400;
+  color: #206bc4;
+}
+.nav-item.active svg {
+  stroke: #206bc4;
+}
+
+.card.active {
+  /*box-shadow: 0px 0px 14px 0px rgba(32, 107, 196, 0.14);
+  border: 1px solid rgba(156, 195, 235, 0.71);*/
+}
+.card.active .card-header {
+  background: #206bc4;
+  color: white;
+}
+
+/*# sourceMappingURL=main.css.map */
