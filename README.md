@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/qweqwename/wallet/master/public/images/wallet.svg" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/qweqwename/wallet/master/public/images/wallet.svg" width="200"></a></p>
 
 
 ## Кошелек на Laravel
