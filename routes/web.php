@@ -35,9 +35,6 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth'])->group(function(){
     Route::get('transfer', [PaymentController::class, 'transfer'])->name('payment.transfer');
     Route::post('transfer', [PaymentController::class, 'store'])->name('payment.store');
-    //Route::get('replenish', [PaymentController::class, 'replenish'])->name('payment.replenish');
-    //Route::post('replenish', [PaymentController::class, 'replenish_store'])->name('payment.replenish.store');
-    //Route::get('history', [PaymentController::class, 'history'])->name('payment.history');
     Route::get('{payment}', [PaymentController::class, 'show'])->name('payment.show')->whereNumber('payment');
 });
 
