@@ -18,14 +18,14 @@
 
                         <div class="mb-3 mt-2">
                             <label class="form-label required mb-3">{{__('Введите номер кошелька')}}</label>
-                            <input value="{{request()->old('id')}}" autocomplete="off" type="text" class="form-control"
+                            <input pattern="^\d*$" value="{{request()->old('id')}}" autocomplete="off" type="text" class="form-control"
                                    name="id" placeholder="123456789">
                         </div>
                         <div class="mb-3">
                             <label class="form-label required mb-3">{{__('Сумма платежа')}}</label>
-                            <input onload="inputAmountChanged(this.value)" onchange="inputAmountChanged(this.value)"
+                            <input onchange="inputAmountChanged(this.value)"
                                    oninput="inputAmountChanged(this.value)" value="{{request()->old('amount')}}"
-                                   autocomplete="off" type="text" class="form-control" id="inputAmount" name="amount"
+                                   autocomplete="off" replacecomma="true" pattern="^\d*([\,\.]\d{0,2})?$" type="text" class="form-control" id="inputAmount" name="amount"
                                    placeholder="100.45">
                         </div>
 
@@ -126,16 +126,38 @@
 
             inputAmountChanged(document.querySelector('#inputAmount').value);
 
+
+            $(document).on('keydown', 'input[pattern]', function(e){
+                var input = $(this);
+                var oldVal = input.val();
+                var regex = new RegExp(input.attr('pattern'), 'g');
+
+                setTimeout(function(){
+                    var newVal = input.val();
+                    if(!regex.test(newVal)){
+                        input.val(oldVal);
+                    }
+
+                    if(input.attr('replacecomma')){
+                        input.val(input.val().replace(',', '.'));
+                    }
+                }, 1);
+            });
+
             function inputAmountChanged(value) {
+                console.log(value);
                 if (value == null || value == '') {
                     value = '0';
                 }
 
+                let withFee = (0.00).toFixedNoRounding(2);
+
                 try {
-                    value = parseFloat(parseFloat(value.replace(',', '.')).toFixedNoRounding(2));
-                    withFee = (value + (value / 100 * fee)).toFixedNoRounding(2);
+                    let newVal = parseFloat(parseFloat(value.replace(',', '.')).toFixedNoRounding(2));
+
+                    withFee = (newVal + (newVal / 100 * fee)).toFixedNoRounding(2);
                 } catch (e) {
-                    withFee = (0.00).toFixedNoRounding(2);
+                    console.log(e);
                 }
 
                 document.querySelector('#amountWithFee').textContent = withFee;

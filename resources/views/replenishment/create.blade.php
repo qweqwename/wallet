@@ -19,7 +19,7 @@
                         <div class="mb-1 mt-2">
                             <label
                                 class="form-label required mb-3">{{__('На сколько рублей хотите пополнить счет?')}}</label>
-                            <input autocomplete="off" type="text" class="form-control" name="amount_replenish"
+                            <input replacecomma="true" pattern="^\d*([\,\.]\d{0,2})?$" autocomplete="off" type="text" class="form-control" name="amount_replenish"
                                    placeholder="100">
                         </div>
                     </div>
@@ -59,4 +59,22 @@
 
     </div>
 
+    <script>
+        $(document).on('keydown', 'input[pattern]', function(e){
+            var input = $(this);
+            var oldVal = input.val();
+            var regex = new RegExp(input.attr('pattern'), 'g');
+
+            setTimeout(function(){
+                var newVal = input.val();
+                if(!regex.test(newVal)){
+                    input.val(oldVal);
+                }
+
+                if(input.attr('replacecomma')){
+                    input.val(input.val().replace(',', '.'));
+                }
+            }, 1);
+        });
+    </script>
 @endsection

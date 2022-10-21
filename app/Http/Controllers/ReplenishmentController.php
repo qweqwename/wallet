@@ -21,31 +21,21 @@ class ReplenishmentController extends Controller
         } else {
             $replenishments = Replenishment::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate(10);
         }
-        return view('replenishment.index',compact( 'replenishments'));
+        return view('replenishment.create',compact( 'replenishments'));
     }
 
     public function store(Request $request){
-
-        $amountReplenish = str_replace(',', '.', $request->amount_replenish ?? '');
-        if(preg_match('/^-?[0-9]+(?:\.[0-9]{1,2})?/', $amountReplenish, $matches)){
-            $amountReplenish = floatval($matches[0]);
-        }
-
-        $request->merge([
-            'amount_replenish' => $amountReplenish,
-        ]);
-
         validator($request->all(), [
             'amount_replenish' => ['required', 'numeric', 'min:0.01', 'regex:/^-?[0-9]+(?:\.[0-9]{1,2})?$/'],
         ])->validate();
 
         DB::beginTransaction();
         DB::table('users')->where('id', '=', Auth::user()->id)->increment(
-            'balance', ($amountReplenish)
+            'balance', ($request->input('amount_replenish'))
         );
         $insert_id = DB::table('replenishments')->insertGetId([
             "user_id" => Auth::user()->id,
-            "amount" => $amountReplenish,
+            "amount" => $request->input('amount_replenish'),
             "status" => 1,
             "created_at" => Carbon::now()
         ]);
@@ -54,7 +44,7 @@ class ReplenishmentController extends Controller
         return redirect()->route('replenishment.create')->with('modal',
             (object)[
                 'title' => 'Готово',
-                'content' => "Ваш счет пополнен на $amountReplenish рублей!",
+                'content' => "Ваш счет пополнен на {$request->input('amount_replenish')} рублей!",
             ]
         );
 

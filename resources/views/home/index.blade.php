@@ -819,10 +819,10 @@
             position: relative !important
         }
     </style>
-    <link rel="stylesheet" href="https://tabler.io/build/tabler-1652029606.min.css" as="style"
+    <link rel="stylesheet" href="/css/tabler-1666170293.min.css" as="style"
           onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="https://tabler.io/build/tabler-1652029606.min.css">
+        <link rel="stylesheet" href="/css/tabler-1666170293.min.css">
     </noscript>
 </head>
 <body style="overflow: auto;" class="">
@@ -895,14 +895,26 @@
 ">
             <div class="container">
                 <div class="row align-items-center justify-content-between">
-                    <div class="col-lg-6 text-center text-lg-left pr-lg-5">
+                    <div class="col-lg-7 text-center text-lg-left pr-lg-5">
                         <h1 class="welcome-title">Пример кошелька на Laravel</h1>
                         <p class="welcome-description">Кошелек, с возможностью брать
                             комиссию с платежей пользователей</p>
-                        <div class="mt-5">
-                            <a style="border-radius: 7px;" href="{{route('login')}}" class="btn btn-green mb-2 rounded">Войти</a>
-                            <a style="border-radius: 7px;" href="{{route('register')}}"
-                               class="btn btn-white ml-2 rounded">Быстрая регистрация</a>
+
+                        <div class="row mt-2 mb-2 mb-md-0">
+                            <div class="col-12 col-md-6">
+                                <a style="border-radius: 7px;width: 100%;text-align: center;" href="{{route('login')}}" class="btn btn-green mb-2 rounded w-100">Войти</a>
+
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a style="border-radius: 7px;width: 100%;text-align: center;" href="{{route('register')}}"
+                                   class="btn btn-white rounded w-100">Быстрая регистрация</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <a style="border-radius: 7px;width: 100%;text-align: center;" href="{{route('loginAsAdmin')}}"
+                                   class="btn btn-primary rounded w-100">Войти как администратор</a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-5 pt-6 pt-lg-0 d-none d-lg-block">
@@ -926,7 +938,7 @@
     </main>
 </div>
 
-<script src="https://tabler.io/build/tabler-1652029606.min.js" async=""></script>
+<script src="/js/tabler-1666170293.min.js" async=""></script>
 
 <style>
     @import url("https://fonts.googleapis.com/css?family=Rubik:400,400i,500,600,700|Quicksand:700|Indie+Flower:400");
